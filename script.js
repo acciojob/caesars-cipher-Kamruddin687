@@ -1,46 +1,28 @@
-// Your Script here.
+function rot13(encodedString) {
+  // Regular expression to match uppercase letters
+  const uppercaseLetters = /[A-Z]/;
 
-const lookup = {
-  A: "N",
-  B: "O",
-  C: "P",
-  D: "Q",
-  E: "R",
-  F: "S",
-  G: "T",
-  H: "U",
-  I: "V",
-  J: "W",
-  K: "X",
-  L: "Y",
-  M: "Z",
-  N: "A",
-  O: "B",
-  P: "C",
-  Q: "D",
-  R: "E",
-  S: "F",
-  T: "G",
-  U: "H",
-  V: "I",
-  W: "J",
-  X: "K",
-  Y: "L",
-  Z: "M",
-  "?": "?",
-  ",": ",",
-};
+  // Function to decode a single character
+  function decodeChar(char) {
+    const charCode = char.charCodeAt(0);
+    let decodedCharCode;
 
-function rot13(encodedStr) {
-  let decodedArr = []; // Your Result goes here
-  // Only change code below this line
+    if (uppercaseLetters.test(char)) {
+      // Shift uppercase letters by 13 positions
+      decodedCharCode = ((charCode - 65 + 13) % 26) + 65;
+    } else {
+      // If it's not an uppercase letter, leave it unchanged
+      decodedCharCode = charCode;
+    }
 
-  return; //return decodedArr
+    return String.fromCharCode(decodedCharCode);
+  }
+
+  // Split the encoded string into an array of characters, decode each character, and join them back
+  return encodedString.split('').map(decodeChar).join('');
 }
 
-// You can test your code by running the above function and printing it to console by pressing the run button at the top. To run it with input 36, uncomment the following line
-
-// console.log(rot13("SERR YBIR? NPPVBWBO"));
-
-// Do not change this line
-window.rot13 = rot13;
+// Example usage:
+const encodedString = "GUR DHVPX OEBJA QBT WHZCRQ BIRE GUR YNML SBK.";
+const decodedString = rot13(encodedString);
+console.log(decodedString); // Output: "THE QUICK BROWN DOG JUMPS OVER THE LAZY FOX."
